@@ -5,14 +5,20 @@ const cors = require('cors');
 const app = express();
 
 // ✅ Fix CORS for your frontend domain
-app.use(cors({
+const corsOptions = {
   origin: [
     'https://lmsfrontend-phi.vercel.app', // your live frontend
     'http://localhost:5173'               // local testing
   ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With'],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+// Ensure preflight requests are handled for all routes
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 
