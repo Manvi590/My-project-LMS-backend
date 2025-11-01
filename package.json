@@ -1,10 +1,11 @@
 {
   "name": "lms-backend-mernstarter",
   "version": "0.1.0",
-  "main": "src/index.js",
+  "main": "index.mjs",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node dev-server.cjs",
+    "start:esm": "node index.mjs",
+    "dev": "nodemon --watch ./src --ext js --exec node dev-server.cjs"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

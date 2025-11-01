@@ -56,9 +56,13 @@ mongoose.connect(MONGO_URI, {
   useUnifiedTopology: true
 }).then(() => {
   console.log('MongoDB connected successfully');
-  server.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
+  // Removed server.listen for Vercel serverless usage. The app is now
+  // exported from the project root `index.js` (ESM) and Vercel manages the
+  // HTTP server/port. If you still want to run this file directly for local
+  // testing, re-enable the line below.
+  // server.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
 }).catch(err => {
   console.error('MongoDB connection error:', err);
   console.log('⚠️  Starting server without database connection');
-  server.listen(PORT, () => console.log(`⚠️  Server running on http://localhost:${PORT} (No DB)`));
+  // server.listen(PORT, () => console.log(`⚠️  Server running on http://localhost:${PORT} (No DB)`));
 });

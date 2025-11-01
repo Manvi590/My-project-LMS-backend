@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+import courseRoutes from "./routes/courseRoutes.js";
 
 const app = express();
 
