@@ -20,6 +20,18 @@ app.use(cors(corsOptions));
 // Ensure preflight requests are handled for all routes
 app.options('*', cors(corsOptions));
 
+// Fallback middleware to always set CORS headers even if later middleware errors
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (corsOptions.origin.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', corsOptions.methods.join(','));
+  res.setHeader('Access-Control-Allow-Headers', corsOptions.allowedHeaders.join(','));
+  res.setHeader('Access-Control-Allow-Credentials', String(corsOptions.credentials));
+  next();
+});
+
 app.use(express.json());
 
 // Parse URL-encoded bodies (for form submissions / some auth flows)
