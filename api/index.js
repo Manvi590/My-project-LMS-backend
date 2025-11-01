@@ -16,9 +16,10 @@ app.use(cors({
 
 app.use(express.json());
 
-// Mount existing course routes at /courses so Vercel's /api maps to /api/courses
+// Mount existing course routes at /api/courses so behaviour matches the
+// project's other entry (`index.mjs`) and common API paths.
 const courseRoutes = require('../src/routes/courses');
-app.use('/courses', courseRoutes);
+app.use('/api/courses', courseRoutes);
 
 // default route
 app.get('/', (req, res) => {
